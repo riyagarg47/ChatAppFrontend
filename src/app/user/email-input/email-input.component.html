@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Chat-O-Buddy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Sign in<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!--form begins-->
+<div class="container-fluid" style="background: goldenrod;">
+  <br>
+  <br>
+  <div class="row" style="padding-bottom:220px">
+  <div class="col-md-6"></div>
+  <div class="col-md-5" style="background: white; border-radius: 10px; padding:20px">
+    <h3>Email Verification</h3>
+<form #emailInputForm="ngForm" (ngSubmit)="emailVerificationFunction()">
+  <div class="form-group">
+    <label for="inputEmail">Enter Your registered email</label>
+    <input type="email" class="form-control" id="inputEmail" name="email" [(ngModel)]="email" required>
+  </div>
+
+  <div class="form-row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary" [disabled]="!emailInputForm.form.valid">Submit</button>
+      </div>
+  </div>
+</form>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>
+
+<!--footer-->
+<footer class="footer">
+  <div class="container-fluid text-center" style="background-color: black; padding:1px">
+      <span style="color: white">Copyright&copy; 2018 Chat-O-Buddy.</span>
+  </div>
+</footer>

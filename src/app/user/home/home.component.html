@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Chat-O-Buddy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="btn btn-outline-primary" [routerLink]="['/login']" (click)="logout()">Logout</a>
+     </li>
+    </ul>
+  </div>
+
+</nav>
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-1"></div>
+    
+    <div class="col-md-5" style="padding-left: 15%">
+    <div class="card myCard">
+      <img class="card-img-top" src="./../../../assets/individual-chat.png" alt="Card image cap">
+      <div class="card-body btn-1">
+      <button class="btn btn-outline-warning" (click)=goToIndividualChatFunction()>I want to chat individually.</button>
+      </div>
+    </div>
+    </div>
+
+    <div class="col-md-5">
+    <div class="card myCard">
+      <img class="card-img-top" src="./../../../assets/icon-group-chat.png" alt="Card image cap">
+      <div class="card-body">
+      <button class="btn btn-outline-warning" (click)=goToGroupChatFunction()>I want to chat in a Buddy Group</button>
+      </div>
+    </div>
+    </div>
+
+    <div class="col-md-1"></div>
+  </div>
+</div>
+
+
+
+<!--footer-->
+<footer class="footer">
+  <div class="container-fluid text-center" style="background-color: black; padding:1px">
+      <span style="color: white">Copyright&copy; 2018 Chat-O-Buddy.</span>
+  </div>
+</footer>

@@ -1,0 +1,36 @@
+.myCard {
+    width: 18rem;
+    background-color:dodgerblue; 
+    border-radius: 10%;
+    box-shadow: 2px 0px 20px 2px black;
+    transition: all .2s ease-in-out;
+}
+
+.myCard:hover{
+    background-color: black;
+    box-shadow: 2px 0px 20px 2px whitesmoke;
+    transform: scale(1.05);
+}
+
+.container-fluid{
+    background-color:goldenrod; 
+    padding:96.5px
+}
+
+.btn-1{
+    padding-left: 13%
+}
+
+@media screen and (max-width:468px){
+    .container-fluid{
+        background-color:goldenrod; 
+        padding:0px
+    }
+    .myCard{
+        width:10em
+    }
+    .btn-1{
+        padding-left: 0
+    }
+   
+}

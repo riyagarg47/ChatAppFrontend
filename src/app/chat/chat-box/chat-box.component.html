@@ -1,0 +1,109 @@
+          <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand text-white">
+              {{userInfo.firstName}} {{userInfo.lastName}}
+              <i class="fa fa-circle online" *ngIf="disconnectedSocket == false"></i>
+              <i class="fa fa-circle offline" *ngIf="disconnectedSocket == true"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+              aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="btn btn-outline-primary" [routerLink]="['/login']" (click)="logout()">Logout</a>
+               </li>
+              </ul>
+            </div>
+
+            <div class="collapse navbar-collapse nav-float-right" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="btn btn-outline-warning"[routerLink]="['/home']">Back to home</a>
+               </li>
+              </ul>
+            </div>
+          
+          </nav>
+        <!--Navbar ends-->
+        <div class="container-fluid" style="background: black">
+
+        <div class="row">
+
+      <div class="col-12 col-sm-4 col-md-4 people-list p-0" id="people-list">
+        <!---sideNav starts-->
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+          <a class="clearfix cursorPointer" [ngClass]="{'activeChat': user.chatting == true}"
+          *ngFor="let user of userList" (click)="userSelectedToChat(user.userId, user.name)">
+          <div class="userPresence" *ngIf="user.userId != userInfo.userId"  >
+            <app-user-details [userFirstName]="user.name" [userLastName]="''" [userStatus]="'online'" [messageRead]="user.unread"></app-user-details>
+          </div>
+         </a>
+        </div>    
+        <p class="p-2 typeOfChats">Online Buddies<span class="list-toggle-button" (click)="openNav()">&#9776;</span></p>
+          <div class="col-md-12 side-content">
+            <p><b style="font-size: 2.7em; line-height:1.5em">Chat<br>O<br>Buddy<br></b> allows you to<br> check out the list<br>
+               of your online buddies &<br> PING the favourite one.<br><br><br><i class="tag-line">hAPPY gOSSIPING...</i></p>
+              </div>
+        <!---sideNav ends-->
+      </div>
+  
+      <div class="col-12 col-sm-8 col-md-8 chat">
+        <div class="chat-header clearfix mobileMenu" *ngIf="receiverName">
+          <app-first-char [name]="receiverName" [userBg]="'blue'" [userColor]="'white'"></app-first-char>
+  
+          <div class="chat-about">
+            <div class="chat-with">Chat with {{receiverName}}</div>
+          </div>
+        </div>
+        <!-- end chat-header -->
+  
+        <div #scrollMe [scrollTop]="(scrollToChatTop)?0:scrollMe.scrollHeight" class="chat-history" *ngIf="receiverName">
+          <ul>
+            <div class="textCenter" *ngIf="receiverName">
+              <span  class="cursorPointer" (click)="loadEarlierPageOfChat()">Load Previous Chat</span>
+              <br>
+              <span *ngIf="loadingPreviousChat == true">Loading...</span>
+            </div>
+            <div class="clearfix" *ngFor="let message of messageList">
+              <div class="message-data" [ngClass]="{'align-right': message.senderId == userInfo.userId}">
+                <span class="message-data-time">{{message?.createdOn | date: 'medium' }}</span> &nbsp; &nbsp;
+                <span class="message-data-name floatLeft" *ngIf="message.senderId != userInfo.userId">
+                  <i class="fa fa-circle online"></i> {{ message?.senderName }}</span>
+                <span class="message-data-name" *ngIf="message.senderId == userInfo.userId">{{ message?.senderName }}</span>
+                <i class="fa fa-circle me" *ngIf="message.senderId == userInfo.userId"></i>
+              </div>
+              <div class="message" [ngClass]="{'float-right other-message': message.senderId == userInfo.userId, 'my-message': message.senderId != userInfo.userId}">
+                {{message?.message | removeSpecialCharPipe: '#' | removeSpecialCharPipe: '$'}}
+              </div>
+            </div>
+          </ul>
+        </div>
+        <div *ngIf="!receiverName" class="col-sm blankContent">
+          Click on user to start a chat!!!
+        </div>
+        <!-- end chat-history -->
+  
+        <div class="chat-message clearfix p-2" *ngIf="receiverName">
+          <textarea name="message-to-send" id="message-to-send" (keydown)="sendMessageUsingKeypress($event)" [(ngModel)]="messageText"
+            placeholder="Type your message" rows="1"></textarea>
+          <button (click)="sendMessage()">Send</button>
+        </div>
+        <!-- end chat-message -->
+      </div>
+    <!-- end chat -->
+  </div><!--end row-->
+  </div>
+  <!-- end container -->
+
+  
+<!--footer-->
+<footer class="footer">
+    <div class="container-fluid text-center" style="background-color: black; padding:1px;">
+        <span style="color: white">Copyright&copy; 2018 Chat-O-Buddy.</span>
+    </div>
+  </footer>
+  
+  

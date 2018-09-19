@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Chat-O-Buddy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Sign in<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!--form begins-->
+<div class="container-fluid" style="background: goldenrod;">
+  <br>
+  <br>
+  <div class="row" style="padding-bottom:48px">
+  <div class="col-md-6"></div>
+  <div class="col-md-5" style="background: white; border-radius: 10px; padding:20px">
+    <h3>Create an account</h3>
+<form #signUpForm="ngForm" (ngSubmit)="signUpFunction()">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputFirstName">FirstName</label>
+      <input type="text" class="form-control" id="inputFirstName" name="firstName" [(ngModel)]="firstName" placeholder="FirstName" required autofocus>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputLastName">LastName</label>
+      <input type="text" class="form-control" id="inputLastName" name="lastName" [(ngModel)]="lastName" placeholder="LastName" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputMobile">Mobile</label>
+    <input type="text" class="form-control" id="inputMobile" name="mobileNumber" [(ngModel)]="mobileNumber" placeholder="Mobile" required>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail">Email</label>
+    <input type="email" class="form-control" id="inputEmail" name="email" [(ngModel)]="email" placeholder="xyz@example.com" required>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputPassword">Create Password</label>
+      <input type="password" class="form-control" name="password" [(ngModel)]="password" id="inputPassword" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="confirmPassword" id="confirmPassword" required>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-9">
+    <span><a href="/">Already have an account? Login</a></span>
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary" [disabled]="!signUpForm.form.valid">Sign Up</button>
+      </div>
+    </div>
+</form>
+</div>
+<div class="col-md-1"></div>
+</div>
+</div>
+
+<!--footer-->
+<footer class="footer">
+  <div class="container-fluid text-center" style="background-color: black; padding:1px">
+      <span style="color: white">Copyright&copy; 2018 Chat-O-Buddy.</span>
+  </div>
+</footer>
