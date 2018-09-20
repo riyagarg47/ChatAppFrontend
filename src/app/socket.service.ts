@@ -116,4 +116,6 @@ public sendChatMessageToGroup = (chatMsgObjectForGroup) => {
   this.socket.emit('room-chat-msg',chatMsgObjectForGroup)
 }//end send chat message
 
+public
+
 }

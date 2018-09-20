@@ -62,7 +62,7 @@ export class GroupChatComponent implements OnInit {
     this.verifyUserConfirmation();
     this.getOnlineUserList();
     this.getAllRoomsFunction();
-    // this.getMessageFromAUser();
+     this.getMessageFromAUser();
   }
  
   public verifyUserConfirmation: any = () => {  //checked
@@ -80,6 +80,7 @@ export class GroupChatComponent implements OnInit {
       for (let x in userList){
         let temp = {'userId': x, 'name': userList[x], 'unread': 0, 'chatting': false}
         this.userList.push(temp);
+        console.log(temp)
       }
       console.log(this.userList)
     });
@@ -92,10 +93,18 @@ export class GroupChatComponent implements OnInit {
       if(apiResponse.status === 200) {
            for(let x of apiResponse.data)
            {
-               this.roomList.push(x.roomName);
+               this.roomDetails.push(x);         
            }
+          console.log(this.roomDetails);
+          for(let y in this.roomDetails){
+            
+            let roomTemp = {'roomId': this.roomDetails[y].roomId, 'name': this.roomDetails[y].roomName,  'unread': 0, 'chatting': false}
+            this.roomList.push(roomTemp); 
+          }
           console.log(this.roomList);
-      }else{
+      }
+      
+      else{
         this.toastr.error(apiResponse.message)
       }
     }, (err) => {
@@ -106,10 +115,13 @@ export class GroupChatComponent implements OnInit {
   
   
   public roomSelectedToChat: any = (id, name) => {
+
     console.log("setting group as current chat group")
     this.roomList.map((room)=>{
       if(room.roomId == id){
         room.chatting = true;
+        console.log(room.roomId)
+        console.log(room.name)
       }else{
         room.chatting = false;
       }
@@ -118,6 +130,7 @@ export class GroupChatComponent implements OnInit {
     Cookie.set('roomId', id);
     Cookie.set('roomName', name);
     this.roomId = id;
+    this.roomName = name;
     this.messageListOfGroup = [];
     this.pageValue = 0;
     let chatDetails = {
@@ -158,17 +171,17 @@ public createRoomFunction: any = () => {
 
 
 
-  // public getMessageFromAUser: any = () => {
-  //   this.socketService.chatByRoomId(this.userInfo.userId).subscribe((data) => {
-  //     (this.receiverId == data.senderId)?this.messageListOfGroup.push(data):'';
-  //     this.toastr.success(`${data.senderName} says: ${data.message}`)
-  //     this.scrollToChatTop = false;
-  //   })
-  // }//end getMessageFromAUser
+  public getMessageFromAUser: any = () => {
+    this.socketService.chatByRoomId(this.userInfo.userId).subscribe((data) => {
+      (this.receiverId == data.senderId)?this.messageListOfGroup.push(data):'';
+      this.toastr.success(`${data.senderName} says: ${data.message}`)
+      this.scrollToChatTop = false;
+    })
+  }//end getMessageFromAUser
 
   public getPreviousChatOfRoom: any = () => {  //checked
     let previousDataOfGroup = (this.messageListOfGroup.length>0?this.messageListOfGroup.slice():[]);
-    this.socketService.getChatOfRoom(this.receiverId, this.pageValue * 10)
+    this.socketService.getChatOfRoom(this.roomId, this.pageValue * 10)
     .subscribe((apiResponse) => {
       console.log(apiResponse);
       if(apiResponse.status == 200){
@@ -232,7 +245,7 @@ public createRoomFunction: any = () => {
         receiverId: Cookie.get('receiverId'),
         receiverName: Cookie.get('receiverName'),
         message: this.messageTextInGroup,
-        chatRoom:this.roomInfo.roomId,
+        chatRoomId:Cookie.get('roomId'),
         createdOn: new Date()
       }// end chatMsgObjectForGroup
       console.log(chatMsgObjectForGroup);

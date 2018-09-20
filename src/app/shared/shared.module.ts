@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FirstCharComponent } from './first-char/first-char.component';
 import { FormsModule } from '@angular/forms';
+import { RemoveSpecialCharPipe } from './pipe/remove-special-char.pipe';
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [UserDetailsComponent, FirstCharComponent],
+  declarations: [UserDetailsComponent, FirstCharComponent, RemoveSpecialCharPipe],
   exports: [
     UserDetailsComponent,
     FirstCharComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
+    RemoveSpecialCharPipe
   ]
 })
 export class SharedModule { }

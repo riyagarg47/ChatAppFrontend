@@ -12,15 +12,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { GroupModule } from './group/group.module';
+// import { RemoveSpecialCharPipe } from './shared/pipe/remove-special-char.pipe';
+// import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent  
+    // RemoveSpecialCharPipe
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    // SharedModule,
     ChatModule,
     UserModule,
     GroupModule,

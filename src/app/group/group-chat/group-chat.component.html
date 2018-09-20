@@ -72,14 +72,28 @@
                 <app-user-details [userFirstName]="user.name" [userLastName]="''" [userStatus]="'online'" [messageRead]="user.unread"></app-user-details>
               </div>
              </a>
-            </div>    
+            </div>   
+            <!---sideNav ends-->
+            <!---room name list starts--> 
             <p class="p-2 typeOfChats">Online Buddies<span class="list-toggle-button" (click)="openNav()">&#9776;</span></p>
               <div class="col-md-12 side-content">
-                <div *ngFor="let room of roomList">
-                    <a href="javascript:void(0)" (click)="roomSelectedToChat()">{{room}}</a>
-                </div>         
+                  <div class="row" *ngFor="let room of roomList">
+                      <div class="col-md-10" style="padding-top:1em;">
+                      <a class="clearfix cursorPointer" [ngClass]="{'activeChat': room.chatting == true}"
+                          (click)="roomSelectedToChat(room.roomId, room.name)">{{room.name}}</a>
+                      </div>
+
+                      <div class="col-md-2"  style="padding-top:1em;"> 
+                        <button class="btn btn-outline-success" (click)="joinRoomFunction()">Join</button>
+                      </div>
+                  </div>         
               </div>
-            <!---sideNav ends-->
+              <!-- <div class="col-md-2 side-content">
+              <div>
+                <button class="btn btn-outline-success">Join</button>
+              </div>
+              </div> -->
+            <!---room name list ends-->
           </div>
           <div class="col-12 col-sm-8 col-md-8 chat">
               <div class="chat-header clearfix mobileMenu" *ngIf="roomName">
@@ -97,7 +111,7 @@
                 <!-- end chat-header -->
 <!--Code requires editing starts-->
 
-<!-- <div #scrollMe [scrollTop]="(scrollToChatTop)?0:scrollMe.scrollHeight" class="chat-history" *ngIf="roomName">
+<div #scrollMe [scrollTop]="(scrollToChatTop)?0:scrollMe.scrollHeight" class="chat-history" *ngIf="roomName">
     <ul>
       <div class="textCenter" *ngIf="roomName">
         <span  class="cursorPointer" (click)="loadEarlierPageOfChat()">Load Previous Chat</span>
@@ -105,14 +119,14 @@
         <span *ngIf="loadingPreviousChat == true">Loading...</span>
       </div>
       <div class="clearfix" *ngFor="let message of messageListOfGroup">
-        <div class="message-data" [ngClass]="{'align-right': message.senderId == roomInfo.roomId}">
+        <div class="message-data" [ngClass]="{'align-right': message.senderId == userInfo.userId}">
           <span class="message-data-time">{{message?.createdOn | date: 'medium' }}</span> &nbsp; &nbsp;
-          <span class="message-data-name floatLeft" *ngIf="message.senderId != roomInfo.roomId">
+          <span class="message-data-name floatLeft" *ngIf="message.senderId != userInfo.userId">
             <i class="fa fa-circle online"></i> {{ message?.senderName }}</span>
-          <span class="message-data-name" *ngIf="message.senderId == roomInfo.roomId">{{ message?.senderName }}</span>
-          <i class="fa fa-circle me" *ngIf="message.senderId == roomInfo.roomId"></i>
+          <span class="message-data-name" *ngIf="message.senderId == userInfo.userId">{{ message?.senderName }}</span>
+          <i class="fa fa-circle me" *ngIf="message.senderId == userInfo.userId"></i>
         </div>
-        <div class="message" [ngClass]="{'float-right other-message': message.senderId == roomInfo.roomId, 'my-message': message.senderId != roomInfo.roomId}">
+        <div class="message" [ngClass]="{'float-right other-message': message.senderId == userInfo.userId, 'my-message': message.senderId != userInfo.userId}">
           {{message?.message | removeSpecialCharPipe: '#' | removeSpecialCharPipe: '$'}}
         </div>
       </div>
@@ -120,7 +134,7 @@
   </div>
   <div *ngIf="!roomName" class="col-sm blankContent">
     Click on room to start a chat!!!
-  </div> -->
+  </div>
 
   <!--Code requires editing ends-->
   

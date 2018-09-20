@@ -377,14 +377,15 @@
       color: white;
       background:black;
       line-height: 2em;
-      text-align: center;
+      text-align: left; 
       height: 90vh;
-      overflow-x: hidden;
+      overflow-x: auto;
       overflow-y: scroll;
     }
 
     .side-content::-webkit-scrollbar {
       width: 7px;
+      height:7px;
       }
       
       .side-content::-webkit-scrollbar-track {
